@@ -10,24 +10,15 @@ from evo.tools import file_interface
 log.configure_logging()
 
 # Load poses
-# traj_ref = file_interface.read_kitti_poses_file("./data/poses/05.txt")
 traj_ref = file_interface.read_kitti_poses_file("./05.txt")
-traj_est = file_interface.read_kitti_poses_file("./results/sequences_test5_40.txt")
-
+traj_est = file_interface.read_kitti_poses_file("./results/sequences_05_30.txt")
 print(traj_ref)
 print(traj_est)
 
 # Absolute Pose Error (APE)
-print("\n###########################")
-print("### ABSOLUTE POSE ERROR ###")
-print("###########################\n")
-
-
-# max_diff = 0.01
-# traj_ref, traj_est = sync.associate_trajectories(traj_ref, traj_est, max_diff)
+print("ABSOLUTE POSE ERROR")
 traj_est_aligned = copy.deepcopy(traj_est)
 traj_est_aligned.align(traj_ref, correct_scale=False, correct_only_scale=False)
-
 fig = plt.figure()
 traj_by_label = {
     "estimate (not aligned)": traj_est,
@@ -65,10 +56,7 @@ plt.show()
 # --------------------------------------------------------------------------------------------------------------------------
 
 # Relative Pose Error (RPE)
-print("\n###########################")
-print("### RELATIVE POSE ERROR ###")
-print("###########################\n")
-
+print("RELATIVE POSE ERROR")
 pose_relation = metrics.PoseRelation.rotation_angle_deg
 # normal mode
 delta = 1
