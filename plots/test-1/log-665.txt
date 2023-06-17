@@ -1,0 +1,16 @@
+batch_size: 16
+lr_warmup: 0.0001
+lr_joint1: 5e-05
+lr_joint2: 1e-05
+lr_joint3: 1e-06
+warmup_epoch: 40
+joint1_epoch: 80
+joint2_epoch: 120
+joint3_epoch: 150
+num_epochs: 500
+min_loss: 30000
+weight_decay: 5e-06
+
+pretrained True
+seq_dir = "sequences_01"
+efficiency_lambda = 9e-5
