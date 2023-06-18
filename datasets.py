@@ -36,25 +36,18 @@ class KITTIOdometryDataset(Dataset):
         return len(self.image_paths)- self.sequence_length # 11  1
 
     def __getitem__(self, idx):
-        # Load the images
-        image_t0 = Image.open(self.image_paths[idx]).convert("RGB")
-        image_t1 = Image.open(self.image_paths[idx + 1]).convert("RGB")
-        # Convert images to tensors
-        image1_tensor = self.transform(image_t0)
-        image2_tensor = self.transform(image_t1)
-        # Check that the images have the same height and width
-        assert image1_tensor.shape[1:] == image2_tensor.shape[1:], "Images must have the same height and width."
-        # Concatenate the two images along the channel dimension
-        concat_image = torch.cat((image1_tensor, image2_tensor), dim=0).float()
 
         images = []
         for i in range(idx, idx + self.sequence_length):
+            # Load the images
             img_t0 = Image.open(self.image_paths[i]).convert('RGB') # ensure 3 channels
             img_t1 = Image.open(self.image_paths[i + 1]).convert('RGB') # ensure 3 channels
+            # Convert images to tensors
             img1_tensor = self.transform(img_t0)
             img2_tensor = self.transform(img_t1)
+            # Check that the images have the same height and width
             assert img1_tensor.shape[1:] == img2_tensor.shape[1:], "Images must have the same height and width."
-            # image_tensor = img1_tensor.permute((0, 2, 1)) # permute the dimensions to (C, H, W)
+            # Concatenate the two images along the channel dimension
             concat_img = torch.cat((img1_tensor, img2_tensor), dim=0).float()
             images.append(concat_img)
         
