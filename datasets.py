@@ -50,8 +50,6 @@ class KITTIOdometryDataset(Dataset):
             # Concatenate the two images along the channel dimension
             concat_img = torch.cat((img1_tensor, img2_tensor), dim=0).float()
             images.append(concat_img)
-        
-        
         concat_images = torch.stack(images) # stack images to get shape (N, C, H, W)
 
         # Extract the sequence and frame number from the file path
